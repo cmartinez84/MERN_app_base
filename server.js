@@ -1,18 +1,22 @@
+require('dotenv').config()
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
+
 const config = require('./config/database');
+// const router = require('router');
+
 
 const app = express();
 
 const port = process.env.PORT || 8080;
+const users = require('./routes/users');
 
 //createa a .env file at the root locally
-
-require('dotenv').config()
 
 mongoose.connect(config.database);
 
@@ -34,7 +38,7 @@ app.use(cors());
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
-// app.use('/users', users);
+app.use('/users', users);
 
 app.get('/', (req, res)=>{
   res.send('invalid')
